@@ -1,1 +1,56 @@
+import java.util.*;
+
+public class NUMBER_GAME {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the Number Game!");
+        System.out.println("Guess a number between 0 and 100 and earn points based on your accuracy.");
+        System.out.println("Here are the scoring rules:");
+        System.out.println(" - Accurate guess: 10 points");
+        System.out.println(" - Close guess: Fewer points based on proximity");
+        System.out.println(" - Guess over 10 points away: 0 points\n");
+
+        boolean playAgain = true;
+
+        while (playAgain) {
+            int totalScore = 0;
+
+            for (int i = 0; i < 5; i++) {
+                System.out.print("Enter your guess: ");
+                int playerGuess = scanner.nextInt();
+                System.out.println("Your guess is: " + playerGuess);
+
+                int maxValue = 100;
+                int minValue = 0;
+                Random random = new Random();
+                int randomNumber = random.nextInt(maxValue - minValue + 1) + minValue;
+                System.out.println("The computer generated number is: " + randomNumber);
+
+                int difference = Math.abs(randomNumber - playerGuess);
+
+                int points = 0;
+                if (difference == 0) {
+                    System.out.println("Your guess was accurate! You earn 10 points.");
+                    points = 10;
+                } else if (difference <= 10) {
+                    points = 10 - difference;
+                    System.out.println("You were " + difference + " points away. You earn " + points + " points.");
+                } else {
+                    System.out.println("Your guess was too far away. You earn 0 points.");
+                }
+
+                totalScore += points;
+            }
+
+            System.out.println("Total score based on your guesses: " + totalScore);
+
+            System.out.print("Do you want to play again? (yes/no): ");
+            String playAgainChoice = scanner.next();
+            playAgain = playAgainChoice.equalsIgnoreCase("yes");
+        }
+
+        System.out.println("Thank you for playing! Have a great day!");
+    }
+}
 
